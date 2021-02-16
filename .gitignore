@@ -1,0 +1,8 @@
+.idea/
+.git/
+[Ll]og/
+packages/
+Tests/[Oo]bj
+Tests/[Bb]in
+WebApp/[Oo]bj
+WebApp/[Bb]in

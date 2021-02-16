@@ -1,0 +1,47 @@
+﻿@using WebApp.StockData
+@{
+    ViewBag.Title = "Audit";
+}
+<h2>@ViewBag.Title.</h2>
+
+<table class="table">
+    <thead>
+    <tr class="bg-primary">
+        <th style="width: 160px">Time</th>
+        <th style="width: 80px">Symbol</th>
+        <th>Bids</th>
+        <th>Asks</th>
+    </tr>    
+    </thead>
+    <tbody>
+        @foreach (var kv in (ViewBag.AuditTable as Dictionary<string, SortedSet<OrderBook>>))
+        {
+            <tr class="bg-info">
+                <td colspan="4">
+                    All requests from user: <strong>@kv.Key</strong>
+                </td>
+            </tr>
+            foreach (var book in kv.Value) {
+                <tr>
+                    @{
+                        var dt = new DateTime(book.TimeSnapshot);
+                    }  
+                    <td>@dt.ToString("G")</td>
+                    <td>@book.Symbol</td>
+                    <td>
+                        @foreach (var bid in book.Bids)
+                        {
+                            @Html.Raw($"[{bid[0]},{bid[1]}] ")
+                        }
+                    </td>
+                    <td>
+                        @foreach (var ask in book.Asks)
+                        {
+                            @Html.Raw($"[{ask[0]},{ask[1]}] ")
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
